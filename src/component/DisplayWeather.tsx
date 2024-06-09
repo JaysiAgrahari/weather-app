@@ -24,6 +24,7 @@ interface WeatherDataProps {
   };
   weather: {
     main: string;
+    description: string;
   }[];
   wind: {
     speed: number;
@@ -139,6 +140,7 @@ const DisplayWeather = () => {
         const { latitude, longitude } = position.coords;
         fetchCurrentWeather(latitude, longitude).then((currentWeather) => {
           setWeatherData(currentWeather);
+          console.log(currentWeather,'89')
           setIsLoading(false);
           const tz = tzlookup(latitude, longitude);
           setTimeZone(tz);
@@ -198,8 +200,8 @@ const DisplayWeather = () => {
               </div>
               <h1>{weatherData.main.temp}°C</h1>
               <h2>{weatherData.weather[0].main}</h2>
+              <h3>{weatherData.weather[0].description}</h3>
             </div>
-            
               <div className="humiditylevel">
                 <WiHumidity className="windIcon" />
                 <div className="humidInfo">
@@ -214,7 +216,6 @@ const DisplayWeather = () => {
                   <p>Wind Speed</p>
                 </div>
               </div>
-            
           </>
         ) : (
           <div className="noData">No weather data available</div>
